@@ -1,75 +1,82 @@
-# Repositorio base del Curso de Introducción a React.js en Platzi
+# Todomachine · Curso de Patrones de Render y Composición en React
 
-¡Hola, Platzinauta!
+Proyecto del **Curso de Patrones de Render y Composición** de Platzi. Partimos del Todomachine construido en el [Curso de Introducción a React.js](https://platzi.com/reactjs) y lo vamos **refactorizando clase a clase**, aplicando los patrones de render que hacen que una aplicación React sea fácil de entender, mantener y escalar.
 
-En este repositorio encontrarás el código de todas las clases del [Curso de Introducción a React.js](https://platzi.com/reactjs). Para empezar solo debes clonar este repositorio (`git clone`), instalar sus dependencias (`npm i`) y ejecutar la aplicación (`npm start`).
+> 🎯 El objetivo no es agregar features nuevas, sino **pulir y refinar el código subyacente** entendiendo *por qué* cada patrón existe y *cuándo* conviene usarlo.
 
-La rama principal contiene el código con el que eempezamos el curso. En las demás ramas encontrarás el código de las siguientes clases y finalmente el deploy de la aplicación.
+---
 
-¡Mucha suerte aprendiendo React! #NuncaParesDeAprender
+## 🧠 ¿Qué aprenderemos?
 
-## Getting Started with Create React App
+| # | Tema | Patrón / Concepto |
+|---|------|-------------------|
+| 1 | Filosofía de React | Principios de diseño: composición sobre herencia, flujo unidireccional de datos, UI como función del estado |
+| 2 | Composición de componentes | `children`, slots, componentes contenedores vs. presentacionales |
+| 3 | Colocación del estado | *State colocation*, *lifting state up*, ¿Context o props? |
+| 4 | Render Props | Props que son funciones de render para compartir lógica |
+| 5 | Higher-Order Components (HOCs) | Funciones que reciben un componente y devuelven uno mejorado |
+| 6 | React Hooks | Custom hooks como la evolución moderna de Render Props y HOCs |
+| 7 | Examen final | Simulación del examen de Platzi con los temas del curso |
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+El plan detallado de cada módulo está en [`ROADMAP.md`](./ROADMAP.md).
 
-## Available Scripts
+---
 
-In the project directory, you can run:
+## 🚀 Cómo ejecutar el proyecto
 
-### `npm start`
+```bash
+git clone <url-del-repo>
+cd todomachine-render-patterns
+npm install
+npm start
+```
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+La aplicación corre en [http://localhost:3000](http://localhost:3000).
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+### Scripts disponibles
 
-### `npm run build`
+| Script | Descripción |
+|--------|-------------|
+| `npm start` | Modo desarrollo con hot-reload |
+| `npm run build` | Build de producción en `/build` |
+| `npm run deploy` | Publica el build en GitHub Pages |
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+---
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## 🗂️ Estructura del proyecto
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+```
+src/
+├── App.js               # Composición raíz: Provider + UI
+├── AppUI.js             # Capa de presentación principal
+├── TodoContext/         # Estado global con Context API
+├── useLocalStorage/     # Custom hook de persistencia
+├── TodoCounter/         # Contador de TODOs completados
+├── TodoSearch/          # Buscador
+├── TodoList/            # Lista (composición vía children)
+├── TodoItem/            # Ítem individual
+├── TodoForm/            # Formulario de creación
+├── Modal/               # Modal (React Portals)
+├── CreateTodoButton/    # Botón flotante
+├── TodosLoading/        # Estado de carga (skeletons)
+├── TodosError/          # Estado de error
+├── TodosNotFound/       # Búsqueda sin resultados
+└── EmptyTodos/          # Lista vacía
+```
 
-### `npm run eject`
+---
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+## 🌿 Flujo de trabajo con Git
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+Cada módulo del curso se desarrolla en una rama `feature/XX-nombre`, se sube al remoto y se integra a `main` mediante Pull Request. El flujo completo está documentado en [`GITFLOW.md`](./GITFLOW.md).
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+---
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+## 📚 Documentación del curso
 
-## Learn More
+- [`ROADMAP.md`](./ROADMAP.md) — Plan de módulos, ramas y objetivos de aprendizaje
+- [`docs/notas/`](./docs/notas) — Apuntes de cada módulo: el *qué*, el *cómo* y el *porqué* de cada refactor
+- [`docs/EXAMEN.md`](./docs/EXAMEN.md) — Examen final estilo Platzi (se construye al cierre de cada módulo)
+- [`docs/legacy/`](./docs/legacy) — Documentación del curso anterior (Introducción a React.js)
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+#NuncaParesDeAprender 💚
