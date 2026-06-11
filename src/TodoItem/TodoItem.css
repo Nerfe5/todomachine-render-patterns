@@ -1,0 +1,86 @@
+.TodoItem {
+  background: #f9f9f9;
+  border-radius: 10px;
+  padding: 15px 20px;
+  margin-bottom: 15px;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  transition: all 0.3s ease;
+  border: 2px solid transparent;
+  position: relative;
+  z-index: 1;
+}
+
+.TodoItem:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+  border-color: #667eea;
+  z-index: 10;
+}
+
+.TodoItem:first-child {
+  margin-top: 5px;
+}
+
+.TodoItem-check {
+  width: 24px;
+  height: 24px;
+  border: 2px solid #999;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-size: 16px;
+  color: transparent;
+  flex-shrink: 0;
+}
+
+.TodoItem-check:hover {
+  border-color: #667eea;
+  background: #f0f0ff;
+}
+
+.TodoItem-check--completed {
+  background: #667eea;
+  border-color: #667eea;
+  color: white;
+}
+
+.TodoItem-text {
+  flex: 1;
+  margin: 0;
+  font-size: 16px;
+  color: #333;
+  line-height: 1.5;
+  transition: all 0.3s ease;
+}
+
+.TodoItem-text--completed {
+  text-decoration: line-through;
+  color: #999;
+}
+
+.TodoItem-delete {
+  width: 24px;
+  height: 24px;
+  border: none;
+  background: transparent;
+  color: #999;
+  cursor: pointer;
+  font-size: 18px;
+  transition: all 0.3s ease;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+}
+
+.TodoItem-delete:hover {
+  background: #ffebee;
+  color: #f44336;
+  transform: rotate(90deg);
+}

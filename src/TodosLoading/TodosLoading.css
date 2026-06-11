@@ -1,0 +1,38 @@
+@keyframes skeleton-loading {
+  0%   { background-color: #e0e0e0; }
+  50%  { background-color: #f0f0f0; }
+  100% { background-color: #e0e0e0; }
+}
+
+.TodosLoading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 8px 0;
+  padding: 0 8px;
+  list-style: none;
+}
+
+.TodosLoading-check {
+  display: block;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  animation: skeleton-loading 1.2s infinite;
+}
+
+.TodosLoading-text {
+  flex: 1;
+  height: 16px;
+  margin: 0 12px;
+  border-radius: 4px;
+  animation: skeleton-loading 1.2s infinite;
+}
+
+.TodosLoading-delete {
+  display: block;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  animation: skeleton-loading 1.2s infinite;
+}
