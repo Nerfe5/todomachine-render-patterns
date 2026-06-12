@@ -20,3 +20,10 @@
   margin: 0 8px;
   line-height: 1;
 }
+
+/* Módulo 3: estado de carga (prop loading inyectada por TodoHeader) */
+.TodoCounter--loading {
+  opacity: 0.35;
+  filter: grayscale(1);
+  transition: opacity 0.3s ease;
+}

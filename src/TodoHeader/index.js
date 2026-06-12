@@ -1,19 +1,30 @@
+import React from 'react';
 import './TodoHeader.css';
 
 /**
- * Patrón: COMPOSICIÓN VÍA CHILDREN (slots)
+ * Patrón: SLOTS + INYECCIÓN DE PROPS (React.cloneElement)
  *
- * TodoHeader no sabe (ni le importa) qué componentes van adentro.
- * Solo define la ESTRUCTURA (un <header> semántico) y proyecta
- * lo que el padre decida ponerle. Igual que TodoList y Modal.
+ * TodoHeader sigue sin saber qué componentes recibe, pero ahora
+ * les "inyecta" la prop `loading` a todos sus children:
  *
- * Beneficio: si mañana el header lleva un logo, un menú o nada,
- * TodoHeader no cambia. Cambia quien lo compone (AppUI).
+ *   <TodoHeader loading={loading}>
+ *     <TodoCounter ... />   ← recibe loading sin que AppUI lo escriba
+ *     <TodoSearch ... />    ← recibe loading sin que AppUI lo escriba
+ *   </TodoHeader>
+ *
+ * cloneElement crea una copia del elemento con props extra.
+ * React.Children.toArray normaliza children (1, varios, o ninguno).
+ *
+ * ⚠️ Es un patrón con trade-offs: crea un "contrato invisible"
+ * (los children reciben props que nadie escribió). Útil y común
+ * en librerías de UI; en apps, usar con moderación.
  */
-function TodoHeader({ children }) {
+function TodoHeader({ children, loading }) {
   return (
     <header className="TodoHeader">
-      {children}
+      {React.Children.toArray(children).map((child) =>
+        React.cloneElement(child, { loading })
+      )}
     </header>
   );
 }

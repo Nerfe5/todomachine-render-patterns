@@ -1,18 +1,15 @@
 import './TodoCounter.css';
 
 /**
- * Patrón: COMPONENTE PRESENTACIONAL
- *
- * Antes: useContext(TodoContext) → acoplado al provider, imposible
- * de reutilizar o probar de forma aislada.
- * Ahora: recibe `completed` y `total` por props. Es una función pura
- * de sus props: mismas props, misma UI. Funciona en cualquier app.
+ * Presentacional. Ahora también recibe `loading` (inyectada por
+ * TodoHeader vía cloneElement) para atenuar el texto mientras
+ * no hay datos reales que contar.
  */
-function TodoCounter({ completed, total }) {
+function TodoCounter({ completed, total, loading }) {
   const allCompleted = completed === total && total > 0;
 
   return (
-    <h1 className="TodoCounter">
+    <h1 className={`TodoCounter ${loading ? 'TodoCounter--loading' : ''}`}>
       {allCompleted ? (
         '🎉 ¡Felicidades! Completaste todos tus TODOS 🎊'
       ) : (

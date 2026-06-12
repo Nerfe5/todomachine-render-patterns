@@ -14,10 +14,11 @@ import { TodoForm } from './TodoForm';
 import { TodosNotFound } from './TodosNotFound';
 
 /**
- * AppUI es ahora el COMPONENTE CONTENEDOR de la cabecera:
- * él consume el contexto y alimenta por props a los
- * presentacionales (TodoCounter, TodoSearch), compuestos
- * dentro del slot de TodoHeader.
+ * MÓDULO 3 — State colocation en acción:
+ * openModal ya NO viene del contexto. Es estado LOCAL de AppUI,
+ * porque solo este subárbol lo usa (botón, modal, formulario).
+ * Estado más cerca de su uso = contexto más liviano = menos
+ * re-renders globales por abrir/cerrar un modal.
  */
 function AppUI() {
   const {
@@ -30,12 +31,13 @@ function AppUI() {
     searchedTodos,
     completeTodo,
     deleteTodo,
-    openModal,
   } = React.useContext(TodoContext);
+
+  const [openModal, setOpenModal] = React.useState(false);
 
   return (
     <div className="App">
-      <TodoHeader>
+      <TodoHeader loading={loading}>
         <TodoCounter
           completed={completedTodos}
           total={totalTodos}
@@ -70,11 +72,11 @@ function AppUI() {
 
       {openModal && (
         <Modal>
-          <TodoForm />
+          <TodoForm setOpenModal={setOpenModal} />
         </Modal>
       )}
 
-      <CreateTodoButton />
+      <CreateTodoButton setOpenModal={setOpenModal} />
     </div>
   );
 }
