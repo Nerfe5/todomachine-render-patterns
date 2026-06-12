@@ -1,7 +1,7 @@
 {
   "name": "todomachine-render-patterns",
   "version": "0.1.0",
-  "homepage": "https://nerfe5.github.io/curso-react-intro",
+  "homepage": "https://nerfe5.github.io/todomachine-render-patterns",
   "dependencies": {
     "react": "^18",
     "react-dom": "^18",

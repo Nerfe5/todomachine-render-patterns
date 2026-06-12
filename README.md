@@ -78,5 +78,6 @@ Cada módulo del curso se desarrolla en una rama `feature/XX-nombre`, se sube al
 - [`docs/notas/`](./docs/notas) — Apuntes de cada módulo: el *qué*, el *cómo* y el *porqué* de cada refactor
 - [`docs/EXAMEN.md`](./docs/EXAMEN.md) — Examen final estilo Platzi (se construye al cierre de cada módulo)
 - [`docs/legacy/`](./docs/legacy) — Documentación del curso anterior (Introducción a React.js)
+- [docs/TOUR.md](./docs/TOUR.md) — Tour guiado por el código)
 
 #NuncaParesDeAprender 💚
