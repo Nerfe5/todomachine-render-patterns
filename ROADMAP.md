@@ -69,7 +69,7 @@ Estado global innecesario = re-renders innecesarios + componentes imposibles de 
 
 ---
 
-## Módulo 4 — Render Props ⬜
+## Módulo 4 — Render Props ✅
 
 **Rama:** `feature/04-render-props`
 

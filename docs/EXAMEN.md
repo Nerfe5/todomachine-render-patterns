@@ -13,7 +13,7 @@ Simulación del examen de Platzi al cierre del curso. **Este documento se constr
 | 1. Filosofía de React | 1–3 | ✅ listas |
 | 2. Composición de componentes | 4–6 | ✅ listas |
 | 3. Colocación del estado | 7–9 | ✅ listas |
-| 4. Render Props | — | ⬜ pendiente |
+| 4. Render Props | 10–12 | ✅ listas |
 | 5. Higher-Order Components | — | ⬜ pendiente |
 | 6. React Hooks | — | ⬜ pendiente |
 
@@ -90,6 +90,29 @@ Simulación del examen de Platzi al cierre del curso. **Este documento se constr
 - C) Clona el estado interno del hijo para compartirlo con sus hermanos
 - D) Convierte al hijo en un componente controlado por el contexto
 
+### Módulo 4 · Render Props
+
+### 10. ¿Qué es una render prop?
+
+- A) Una prop que solo acepta componentes de clase como valor
+- B) Una prop cuyo valor es una función que devuelve elementos React, permitiendo que el componente decida cuándo y con qué datos ejecutarla
+- C) Una prop especial de React que renderiza HTML directamente sin JSX
+- D) Cualquier prop que se pase a un componente que hace render
+
+### 11. En el refactor, ¿qué ganó TodoList al recibir `onError`, `onLoading`, `onEmptyTodos` y `onEmptySearchResults` como funciones?
+
+- A) Renderiza más rápido porque las funciones se evalúan de forma diferida
+- B) Se volvió dueña de CUÁNDO mostrar cada estado sin conocer QUÉ se muestra: la lógica condicional salió de AppUI y TodoList sigue sin importar ningún componente concreto
+- C) Puede modificar el contexto global desde dentro de la lista
+- D) Evita por completo los re-renders del componente padre
+
+### 12. ¿Cuál es hoy el principal caso donde los render props siguen siendo el patrón correcto frente a los hooks?
+
+- A) Compartir lógica con estado entre componentes, como suscripciones o fetching
+- B) Reemplazar a useEffect en componentes funcionales
+- C) Delegar la decisión de QUÉ UI pintar mientras el componente controla CUÁNDO y con qué datos (inversión del control del render)
+- D) Ya no existe ningún caso: los hooks reemplazaron a los render props por completo
+
 > Las preguntas de los siguientes módulos se agregan aquí a su cierre.
 
 <!--
@@ -125,6 +148,12 @@ Plantilla de pregunta:
 **8. Respuesta: C** — Es el caso de libro de colocation: parecía global porque "lo usaban 3 componentes", pero los 3 comparten subárbol. Moverlo a AppUI alivió al contexto (cada apertura/cierre del modal generaba un value nuevo y re-renderizaba a todos los consumidores). A y D son falsedades técnicas; B convierte una decisión contextual en regla absoluta, que es justo lo que el módulo enseña a NO hacer.
 
 **9. Respuesta: B** — cloneElement crea una copia del elemento con props extra mezcladas; junto con React.Children.toArray permite que un wrapper coordine hijos que no conoce. No duplica nada en el DOM (A), no existe "clonar estado" entre hermanos (C) y no involucra contexto (D). Bonus: la documentación moderna lo marca como legacy — sus alternativas son render props (Módulo 4) o Context.
+
+**10. Respuesta: B** — La esencia del patrón es la inversión de control: quien usa el componente entrega una receta (función → elementos) y el componente decide cuándo cocinarla y con qué ingredientes (argumentos). Puede llegar como children (children as a function) o como prop con nombre. A, C y D no describen el patrón.
+
+**11. Respuesta: B** — Es exactamente el cierre del Olor #6: la lista conoce sus situaciones (cargando, vacía, sin resultados...) y el padre declara la UI de cada una. TodoList no importa TodosError ni TodoItem: ejecuta funciones que le pasaron. A confunde con lazy evaluation (las funciones se ejecutan en el mismo render), C y D son falsos.
+
+**12. Respuesta: C** — Para compartir LÓGICA con estado (A) los hooks son el reemplazo moderno. Pero cuando lo que se delega es UI —"tú decides cuándo, yo decido qué se pinta"— los render props siguen vigentes y se usan en librerías actuales (TanStack Table, Downshift, Headless UI). D es demasiado absoluto, y B no tiene sentido: los render props no sustituyen efectos.
 
 <!--
 Plantilla de respuesta:

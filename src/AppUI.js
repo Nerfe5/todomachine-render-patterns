@@ -14,11 +14,9 @@ import { TodoForm } from './TodoForm';
 import { TodosNotFound } from './TodosNotFound';
 
 /**
- * MÓDULO 3 — State colocation en acción:
- * openModal ya NO viene del contexto. Es estado LOCAL de AppUI,
- * porque solo este subárbol lo usa (botón, modal, formulario).
- * Estado más cerca de su uso = contexto más liviano = menos
- * re-renders globales por abrir/cerrar un modal.
+ * MÓDULO 4 — AppUI ya no decide CUÁNDO mostrar cada estado de la
+ * lista (eso es asunto de TodoList). Solo declara QUÉ se ve en
+ * cada caso, vía render props. Adiós Olor #6.
  */
 function AppUI() {
   const {
@@ -48,18 +46,25 @@ function AppUI() {
         />
       </TodoHeader>
 
-      <TodoList>
-        {loading && (
+      <TodoList
+        error={error}
+        loading={loading}
+        totalTodos={totalTodos}
+        searchedTodos={searchedTodos}
+        onError={() => <TodosError />}
+        onLoading={() => (
           <>
             <TodosLoading />
             <TodosLoading />
             <TodosLoading />
           </>
         )}
-        {error && <TodosError />}
-        {(!loading && totalTodos === 0) && <EmptyTodos />}
-        {(!loading && totalTodos > 0 && searchedTodos.length === 0) && <TodosNotFound />}
-        {searchedTodos.map(todo => (
+        onEmptyTodos={() => <EmptyTodos />}
+        onEmptySearchResults={() => (
+          <TodosNotFound searchText={searchValue} />
+        )}
+      >
+        {todo => (
           <TodoItem
             key={todo.text}
             text={todo.text}
@@ -67,7 +72,7 @@ function AppUI() {
             onComplete={() => completeTodo(todo.text)}
             onDelete={() => deleteTodo(todo.text)}
           />
-        ))}
+        )}
       </TodoList>
 
       {openModal && (
