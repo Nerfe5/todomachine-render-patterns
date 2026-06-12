@@ -1,10 +1,12 @@
-import React from 'react';
-import { TodoContext } from '../TodoContext';
 import './TodoSearch.css';
 
-function TodoSearch() {
-  const { searchValue, setSearchValue } = React.useContext(TodoContext);
-
+/**
+ * Patrón: COMPONENTE PRESENTACIONAL (input controlado)
+ *
+ * Recibe el valor y el setter por props. TodoSearch ya no conoce
+ * el TodoContext: es un buscador genérico y reutilizable.
+ */
+function TodoSearch({ searchValue, setSearchValue }) {
   return (
     <input
       placeholder="Buscar TODO"

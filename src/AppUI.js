@@ -1,5 +1,6 @@
 import React from 'react';
 import { TodoContext } from './TodoContext';
+import { TodoHeader } from './TodoHeader';
 import { TodoCounter } from './TodoCounter';
 import { TodoSearch } from './TodoSearch';
 import { TodoList } from './TodoList';
@@ -12,11 +13,20 @@ import { Modal } from './Modal';
 import { TodoForm } from './TodoForm';
 import { TodosNotFound } from './TodosNotFound';
 
+/**
+ * AppUI es ahora el COMPONENTE CONTENEDOR de la cabecera:
+ * él consume el contexto y alimenta por props a los
+ * presentacionales (TodoCounter, TodoSearch), compuestos
+ * dentro del slot de TodoHeader.
+ */
 function AppUI() {
   const {
     loading,
     error,
+    completedTodos,
     totalTodos,
+    searchValue,
+    setSearchValue,
     searchedTodos,
     completeTodo,
     deleteTodo,
@@ -25,8 +35,17 @@ function AppUI() {
 
   return (
     <div className="App">
-      <TodoCounter />
-      <TodoSearch />
+      <TodoHeader>
+        <TodoCounter
+          completed={completedTodos}
+          total={totalTodos}
+        />
+        <TodoSearch
+          searchValue={searchValue}
+          setSearchValue={setSearchValue}
+        />
+      </TodoHeader>
+
       <TodoList>
         {loading && (
           <>

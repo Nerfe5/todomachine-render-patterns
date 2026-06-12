@@ -19,7 +19,7 @@ Plan de trabajo del curso. Cada módulo tiene su rama `feature/`, sus objetivos 
 
 ---
 
-## Módulo 1 — Filosofía y principios de diseño de React ⬜
+## Módulo 1 — Filosofía y principios de diseño de React ✅
 
 **Rama:** `feature/01-filosofia-react` · **Tipo:** teórico + auditoría de código
 
@@ -35,7 +35,7 @@ Sin entender la filosofía, los patrones se aplican por moda. Con ella, cada pat
 
 ---
 
-## Módulo 2 — Composición de componentes ⬜
+## Módulo 2 — Composición de componentes ✅
 
 **Rama:** `feature/02-composicion`
 

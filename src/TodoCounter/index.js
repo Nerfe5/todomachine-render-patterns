@@ -1,17 +1,24 @@
-import React from 'react';
-import { TodoContext } from '../TodoContext';
 import './TodoCounter.css';
 
-function TodoCounter() {
-  const { completedTodos, totalTodos } = React.useContext(TodoContext);
-  const allCompleted = completedTodos === totalTodos && totalTodos > 0;
+/**
+ * Patrón: COMPONENTE PRESENTACIONAL
+ *
+ * Antes: useContext(TodoContext) → acoplado al provider, imposible
+ * de reutilizar o probar de forma aislada.
+ * Ahora: recibe `completed` y `total` por props. Es una función pura
+ * de sus props: mismas props, misma UI. Funciona en cualquier app.
+ */
+function TodoCounter({ completed, total }) {
+  const allCompleted = completed === total && total > 0;
 
   return (
     <h1 className="TodoCounter">
       {allCompleted ? (
         '🎉 ¡Felicidades! Completaste todos tus TODOS 🎊'
       ) : (
-        `Has completado ${completedTodos} de ${totalTodos} TODOS`
+        <>
+          Has completado <span>{completed}</span> de <span>{total}</span> TODOS
+        </>
       )}
     </h1>
   );
