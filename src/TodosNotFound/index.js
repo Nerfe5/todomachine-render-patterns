@@ -1,10 +1,19 @@
 import './TodosNotFound.css';
 
-function TodosNotFound() {
+/**
+ * Mejorado en el Módulo 4: ahora puede recibir el texto buscado
+ * para dar un mensaje más útil (lo recibe desde la render prop
+ * onEmptySearchResults en AppUI).
+ */
+function TodosNotFound({ searchText }) {
   return (
     <li className="TodosNotFound">
       <span>🔍</span>
-      <p>No encontramos resultados para tu búsqueda.</p>
+      <p>
+        {searchText
+          ? `No encontramos resultados para "${searchText}".`
+          : 'No encontramos resultados para tu búsqueda.'}
+      </p>
     </li>
   );
 }
