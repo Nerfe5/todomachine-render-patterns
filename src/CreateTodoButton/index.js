@@ -1,10 +1,12 @@
-import React from 'react';
-import { TodoContext } from '../TodoContext';
 import './CreateTodoButton.css';
 
-function CreateTodoButton() {
-  const { setOpenModal } = React.useContext(TodoContext);
-
+/**
+ * MÓDULO 3 — De acoplado a PRESENTACIONAL:
+ * antes hacía useContext(TodoContext) solo para sacar setOpenModal.
+ * Ahora recibe la función por props desde quien ES dueño del
+ * estado del modal: AppUI. Componente 100% reutilizable.
+ */
+function CreateTodoButton({ setOpenModal }) {
   return (
     <button
       className="CreateTodoButton"

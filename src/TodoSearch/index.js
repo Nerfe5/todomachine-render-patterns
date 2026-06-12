@@ -1,12 +1,11 @@
 import './TodoSearch.css';
 
 /**
- * Patrón: COMPONENTE PRESENTACIONAL (input controlado)
- *
- * Recibe el valor y el setter por props. TodoSearch ya no conoce
- * el TodoContext: es un buscador genérico y reutilizable.
+ * Presentacional (input controlado). Recibe `loading` inyectada
+ * por TodoHeader: mientras cargan los TODOs no tiene sentido
+ * permitir buscar, así que el input se deshabilita.
  */
-function TodoSearch({ searchValue, setSearchValue }) {
+function TodoSearch({ searchValue, setSearchValue, loading }) {
   return (
     <input
       placeholder="Buscar TODO"
@@ -15,6 +14,7 @@ function TodoSearch({ searchValue, setSearchValue }) {
       onChange={(event) => {
         setSearchValue(event.target.value);
       }}
+      disabled={loading}
     />
   );
 }

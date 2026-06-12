@@ -2,8 +2,14 @@ import React from 'react';
 import { TodoContext } from '../TodoContext';
 import './TodoForm.css';
 
-function TodoForm() {
-  const { addTodo, setOpenModal } = React.useContext(TodoContext);
+/**
+ * MÓDULO 3 — Desacople PARCIAL (a propósito):
+ * setOpenModal ya llega por props (el estado del modal es de AppUI).
+ * addTodo sigue saliendo del contexto: es lógica de negocio global
+ * legítima. El desacople total llegará con useTodos (Módulo 6).
+ */
+function TodoForm({ setOpenModal }) {
+  const { addTodo } = React.useContext(TodoContext);
   const [newTodoValue, setNewTodoValue] = React.useState('');
 
   const onSubmit = (event) => {

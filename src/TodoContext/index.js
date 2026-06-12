@@ -3,6 +3,15 @@ import { useLocalStorage } from '../useLocalStorage';
 
 const TodoContext = React.createContext();
 
+/**
+ * MÓDULO 3 — Colocación del estado:
+ * openModal/setOpenModal SALIERON de aquí. Era estado global
+ * que solo necesitaba el subárbol de AppUI → ahora vive ahí.
+ *
+ * searchValue SÍ se queda (por ahora): el filtrado (searchedTodos)
+ * se calcula aquí y lo necesita. Se mudarán juntos a useTodos
+ * en el Módulo 6.
+ */
 function TodoProvider({ children }) {
   const {
     item: todos,
@@ -12,7 +21,6 @@ function TodoProvider({ children }) {
   } = useLocalStorage('TODOS_V1', []);
 
   const [searchValue, setSearchValue] = React.useState('');
-  const [openModal, setOpenModal] = React.useState(false);
 
   const completedTodos = todos.filter(todo => !!todo.completed).length;
   const totalTodos = todos.length;
@@ -54,8 +62,6 @@ function TodoProvider({ children }) {
       completeTodo,
       deleteTodo,
       addTodo,
-      openModal,
-      setOpenModal,
     }}>
       {children}
     </TodoContext.Provider>

@@ -12,7 +12,7 @@ Simulación del examen de Platzi al cierre del curso. **Este documento se constr
 |--------|-----------|--------|
 | 1. Filosofía de React | 1–3 | ✅ listas |
 | 2. Composición de componentes | 4–6 | ✅ listas |
-| 3. Colocación del estado | — | ⬜ pendiente |
+| 3. Colocación del estado | 7–9 | ✅ listas |
 | 4. Render Props | — | ⬜ pendiente |
 | 5. Higher-Order Components | — | ⬜ pendiente |
 | 6. React Hooks | — | ⬜ pendiente |
@@ -67,6 +67,29 @@ Simulación del examen de Platzi al cierre del curso. **Este documento se constr
 - C) Porque AppUI re-renderiza menos que TodoCounter
 - D) Porque los componentes con CSS propio no pueden usar useContext
 
+### Módulo 3 · Colocación del estado
+
+### 7. Según el principio de *state colocation*, ¿cuál es la pregunta clave para decidir dónde debe vivir una pieza de estado?
+
+- A) ¿Qué tan grande es el objeto que se guarda en el estado?
+- B) ¿Quiénes leen y quiénes escriben ese estado, y dónde están en el árbol?
+- C) ¿El estado se actualiza con eventos síncronos o asíncronos?
+- D) ¿El estado necesita persistirse en localStorage?
+
+### 8. En el refactor, `openModal` salió del contexto global hacia `AppUI`. ¿Cuál fue la razón principal?
+
+- A) useState no funciona dentro de un Provider
+- B) Los modales en React siempre deben manejarse con estado local
+- C) Todos sus consumidores (botón, modal, formulario) viven en el subárbol de AppUI, su ancestro común más cercano; además, cada toggle re-renderizaba a todos los consumidores del contexto
+- D) El contexto tiene un límite de propiedades en su value
+
+### 9. ¿Qué hace `React.cloneElement(child, { loading })` en nuestro `TodoHeader`?
+
+- A) Duplica el componente hijo en el DOM, renderizándolo dos veces
+- B) Crea una copia del elemento hijo agregándole la prop `loading`, permitiendo que el wrapper inyecte props sin conocer a sus children
+- C) Clona el estado interno del hijo para compartirlo con sus hermanos
+- D) Convierte al hijo en un componente controlado por el contexto
+
 > Las preguntas de los siguientes módulos se agregan aquí a su cierre.
 
 <!--
@@ -96,6 +119,12 @@ Plantilla de pregunta:
 **5. Respuesta: C** — Un presentacional es una "función pura de sus props": mismas props, misma UI. Eso lo hace portable (cópialo a otra app y funciona) y trivial de probar. A es falso: usar o no estado no determina la velocidad de render. D confunde con `React.memo`, que es explícito, no automático.
 
 **6. Respuesta: B** — La lección clave del módulo: alguien tiene que conocer los datos. La meta no es "cero useContext", sino ponerlo en la capa correcta (el contenedor), dejando a los presentacionales libres de dependencias. A es falso (useContext se usa donde haga falta), C es al revés (AppUI consume más contexto, re-renderiza igual o más), D es inventada.
+
+**7. Respuesta: B** — La colocación se decide por el mapa de lectores/escritores: un solo componente → estado local; varios cercanos → ancestro común; ramas lejanas → contexto. El tamaño (A), la sincronía (C) o la persistencia (D) influyen en otras decisiones, no en DÓNDE vive el estado.
+
+**8. Respuesta: C** — Es el caso de libro de colocation: parecía global porque "lo usaban 3 componentes", pero los 3 comparten subárbol. Moverlo a AppUI alivió al contexto (cada apertura/cierre del modal generaba un value nuevo y re-renderizaba a todos los consumidores). A y D son falsedades técnicas; B convierte una decisión contextual en regla absoluta, que es justo lo que el módulo enseña a NO hacer.
+
+**9. Respuesta: B** — cloneElement crea una copia del elemento con props extra mezcladas; junto con React.Children.toArray permite que un wrapper coordine hijos que no conoce. No duplica nada en el DOM (A), no existe "clonar estado" entre hermanos (C) y no involucra contexto (D). Bonus: la documentación moderna lo marca como legacy — sus alternativas son render props (Módulo 4) o Context.
 
 <!--
 Plantilla de respuesta:

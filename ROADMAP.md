@@ -52,7 +52,7 @@ La composición evita la "perforación de props" (*prop drilling*) innecesaria y
 
 ---
 
-## Módulo 3 — Colocación del estado (state colocation) ⬜
+## Módulo 3 — Colocación del estado (state colocation) ✅
 
 **Rama:** `feature/03-colocacion-estado`
 
