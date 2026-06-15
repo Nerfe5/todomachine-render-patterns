@@ -1,15 +1,19 @@
 import React from 'react';
-import { TodoContext } from '../TodoContext';
+import { withTodoContext } from '../HOCs/withTodoContext';
+import { withLogger } from '../HOCs/withLogger';
 import './TodoForm.css';
 
 /**
- * MÓDULO 3 — Desacople PARCIAL (a propósito):
- * setOpenModal ya llega por props (el estado del modal es de AppUI).
- * addTodo sigue saliendo del contexto: es lógica de negocio global
- * legítima. El desacople total llegará con useTodos (Módulo 6).
+ * MÓDULO 5 — TodoForm por fin es 100% PRESENTACIONAL:
+ * addTodo ya no sale de useContext — llega por props, inyectado
+ * por el HOC withTodoContext. El Olor #5 queda cerrado del todo.
+ *
+ * Abajo exportamos las dos versiones:
+ * - TodoForm: pura, para tests/Storybook/reutilización.
+ * - TodoFormConnected: envuelta (y con logger, para ver la
+ *   composición de HOCs en acción — abre la consola y el modal).
  */
-function TodoForm({ setOpenModal }) {
-  const { addTodo } = React.useContext(TodoContext);
+function TodoForm({ addTodo, setOpenModal }) {
   const [newTodoValue, setNewTodoValue] = React.useState('');
 
   const onSubmit = (event) => {
@@ -58,4 +62,6 @@ function TodoForm({ setOpenModal }) {
   );
 }
 
-export { TodoForm };
+const TodoFormConnected = withLogger(withTodoContext(TodoForm));
+
+export { TodoForm, TodoFormConnected };

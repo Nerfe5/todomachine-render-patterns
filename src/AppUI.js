@@ -10,13 +10,17 @@ import { TodosError } from './TodosError';
 import { EmptyTodos } from './EmptyTodos';
 import { CreateTodoButton } from './CreateTodoButton';
 import { Modal } from './Modal';
-import { TodoForm } from './TodoForm';
+import { TodoFormConnected } from './TodoForm';
 import { TodosNotFound } from './TodosNotFound';
 
 /**
  * MÓDULO 4 — AppUI ya no decide CUÁNDO mostrar cada estado de la
  * lista (eso es asunto de TodoList). Solo declara QUÉ se ve en
  * cada caso, vía render props. Adiós Olor #6.
+ *
+ * MÓDULO 5 — TodoFormConnected: la versión de TodoForm envuelta
+ * por HOCs (withLogger ∘ withTodoContext). AppUI le pasa solo
+ * setOpenModal; addTodo se lo inyecta el HOC desde el contexto.
  */
 function AppUI() {
   const {
@@ -77,7 +81,7 @@ function AppUI() {
 
       {openModal && (
         <Modal>
-          <TodoForm setOpenModal={setOpenModal} />
+          <TodoFormConnected setOpenModal={setOpenModal} />
         </Modal>
       )}
 
