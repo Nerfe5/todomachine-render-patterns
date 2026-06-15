@@ -15,7 +15,7 @@ Simulación del examen de Platzi al cierre del curso. **Este documento se constr
 | 3. Colocación del estado | 7–9 | ✅ listas |
 | 4. Render Props | 10–12 | ✅ listas |
 | 5. Higher-Order Components | 13–15 | ✅ listas |
-| 6. React Hooks | — | ⬜ pendiente |
+| 6. React Hooks | 16–18 | ✅ listas |
 
 ---
 
@@ -136,6 +136,29 @@ Simulación del examen de Platzi al cierre del curso. **Este documento se constr
 - C) Porque se crearía un tipo de componente distinto en cada render, forzando a React a desmontar y remontar el subárbol completo (perdiendo estado y DOM)
 - D) Porque los HOCs no pueden acceder a props definidas en tiempo de render
 
+### Módulo 6 · React Hooks
+
+### 16. ¿Cuál es la ventaja principal de los custom hooks sobre los HOCs y render props para compartir lógica con estado?
+
+- A) Los hooks renderizan más rápido porque evitan crear componentes adicionales
+- B) Los hooks no necesitan importarse: React los detecta automáticamente por el prefijo `use`
+- C) La lógica compartida es plana y explícita: sin wrappers en el árbol de componentes, sin anidamiento de funciones y sin colisiones silenciosas de props
+- D) Los hooks permiten usar estado en componentes de clase sin refactorizarlos
+
+### 17. En el refactor de `completeTodo`, ¿por qué `todos.map(todo => todo.id === id ? { ...todo, completed: !todo.completed } : todo)` es correcto y `newTodos[index].completed = true` no?
+
+- A) Porque `.map()` es más rápido que el acceso por índice
+- B) Porque el spread crea un nuevo objeto para el todo modificado y `.map()` crea un nuevo array, garantizando nuevas referencias en ambos niveles. La mutación directa deja la misma referencia de objeto: React.memo y comparaciones de estado previo quedan ciegos al cambio
+- C) Porque `true` es un valor primitivo que no puede asignarse a propiedades de objetos en arrays
+- D) Porque `findIndex` devuelve -1 cuando no encuentra el elemento, lo que causaría un error
+
+### 18. `TodoProvider` delega toda su lógica a `useTodos` pero sigue existiendo. ¿Por qué no eliminarlo y llamar `useTodos()` directamente en AppUI pasando todo por props?
+
+- A) Porque los custom hooks solo pueden llamarse desde un Provider
+- B) Porque `useTodos` usa `useLocalStorage`, que requiere estar dentro de un Context
+- C) Funcionaría para un árbol pequeño, pero en cuanto componentes profundos como `TodoForm` necesiten `addTodo`, el prop drilling vuelve. El Provider resuelve el ALCANCE (distribución sin prop drilling); el hook resuelve la LÓGICA. Son problemas distintos con herramientas distintas
+- D) Porque React no permite que AppUI consuma directamente un hook que usa useLocalStorage
+
 > Las preguntas de los siguientes módulos se agregan aquí a su cierre.
 
 <!--
@@ -181,6 +204,14 @@ Plantilla de pregunta:
 **13. Respuesta: B** — Un HOC no es un componente ni una API de React: es una FUNCIÓN (patrón de higher-order functions) que envuelve componentes para agregarles props o comportamiento. A describe herencia (justo lo que React evita), C confunde con CSS, D mezcla conceptos: los hooks no envuelven componentes.
 
 **14. Respuesta: C** — En JSX las props repetidas se resuelven como en los objetos: la última gana. `{...todoContext} {...props}` es una decisión de diseño: si el padre pasa explícitamente una prop que el HOC también inyecta, manda el padre. Invertir el orden haría que el HOC pisara silenciosamente las props del padre — fuente clásica de bugs.
+
+
+
+**16. Respuesta: C** — Los hooks componen de forma lineal (3 `const` en 3 líneas, sin anidar). HOCs producen wrapper hell en DevTools; render props producen pirámides de funciones; ambos pueden colisionar props silenciosamente. A es falso (no hay garantía de performance); B es inventado (los hooks se importan como cualquier función); D es lo opuesto: los hooks NO funcionan en clases.
+
+**17. Respuesta: B** — La mutación directa deja la misma referencia de objeto en memoria. Como React compara por referencia para decidir re-renders, `React.memo` y optimizaciones similares no detectan el cambio. El patrón correcto crea nuevas referencias en ambos niveles: array nuevo (map) y objeto nuevo (spread). A es irrelevante para la corrección; C es falso (la asignación de primitivos a propiedades es válida); D describe otro escenario distinto.
+
+**18. Respuesta: C** — Es la distinción clave del módulo: los hooks resuelven LÓGICA (cómo se calcula el estado), el Context resuelve ALCANCE (cómo llega a componentes profundos sin pasar por intermediarios). Eliminar el Provider funcionaría si la app fuera completamente plana, pero en cuanto hay profundidad el prop drilling regresa. A y B son falsedades técnicas; D no existe como restricción de React.
 
 **15. Respuesta: C** — `withX(Component)` devuelve una función nueva CADA vez que se llama. Si eso ocurre en un render, React ve un "tipo" diferente en cada pasada, descarta el subárbol anterior y lo monta de cero: se pierde estado local (lo escrito en inputs), foco y DOM. Por eso los HOCs se aplican una sola vez, a nivel de módulo. B menciona una regla real de hooks pero no es lo que pasa aquí; A y D son falsas.
 

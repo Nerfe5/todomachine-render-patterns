@@ -14,13 +14,9 @@ import { TodoFormConnected } from './TodoForm';
 import { TodosNotFound } from './TodosNotFound';
 
 /**
- * MÓDULO 4 — AppUI ya no decide CUÁNDO mostrar cada estado de la
- * lista (eso es asunto de TodoList). Solo declara QUÉ se ve en
- * cada caso, vía render props. Adiós Olor #6.
- *
- * MÓDULO 5 — TodoFormConnected: la versión de TodoForm envuelta
- * por HOCs (withLogger ∘ withTodoContext). AppUI le pasa solo
- * setOpenModal; addTodo se lo inyecta el HOC desde el contexto.
+ * MÓDULO 6 — AppUI actualizado para ids reales:
+ * onComplete y onDelete ahora pasan todo.id en lugar de todo.text.
+ * key={todo.id} — Olor #1 cerrado definitivamente. 🎉
  */
 function AppUI() {
   const {
@@ -70,11 +66,11 @@ function AppUI() {
       >
         {todo => (
           <TodoItem
-            key={todo.text}
+            key={todo.id}
             text={todo.text}
             completed={todo.completed}
-            onComplete={() => completeTodo(todo.text)}
-            onDelete={() => deleteTodo(todo.text)}
+            onComplete={() => completeTodo(todo.id)}
+            onDelete={() => deleteTodo(todo.id)}
           />
         )}
       </TodoList>
