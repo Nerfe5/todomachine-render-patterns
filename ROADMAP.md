@@ -103,7 +103,7 @@ Aunque hoy se prefieren los hooks, los HOCs siguen vivos en librerías y código
 
 ---
 
-## Módulo 6 — React Hooks como patrón definitivo ⬜
+## Módulo 6 — React Hooks como patrón definitivo ✅
 
 **Rama:** `feature/06-hooks`
 
