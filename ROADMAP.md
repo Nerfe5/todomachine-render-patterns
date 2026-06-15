@@ -86,7 +86,7 @@ Estado global innecesario = re-renders innecesarios + componentes imposibles de 
 
 ---
 
-## Módulo 5 — Higher-Order Components (HOCs) ⬜
+## Módulo 5 — Higher-Order Components (HOCs) ✅
 
 **Rama:** `feature/05-hocs`
 

@@ -14,7 +14,7 @@ Simulación del examen de Platzi al cierre del curso. **Este documento se constr
 | 2. Composición de componentes | 4–6 | ✅ listas |
 | 3. Colocación del estado | 7–9 | ✅ listas |
 | 4. Render Props | 10–12 | ✅ listas |
-| 5. Higher-Order Components | — | ⬜ pendiente |
+| 5. Higher-Order Components | 13–15 | ✅ listas |
 | 6. React Hooks | — | ⬜ pendiente |
 
 ---
@@ -113,6 +113,29 @@ Simulación del examen de Platzi al cierre del curso. **Este documento se constr
 - C) Delegar la decisión de QUÉ UI pintar mientras el componente controla CUÁNDO y con qué datos (inversión del control del render)
 - D) Ya no existe ningún caso: los hooks reemplazaron a los render props por completo
 
+### Módulo 5 · Higher-Order Components
+
+### 13. ¿Qué es un Higher-Order Component?
+
+- A) Un componente de clase que hereda de otro componente para extenderlo
+- B) Una función que recibe un componente y devuelve un componente nuevo con capacidades adicionales
+- C) Un componente que se renderiza por encima de los demás en el z-index
+- D) Un hook que envuelve componentes para conectarlos al contexto
+
+### 14. En `withTodoContext`, el componente envuelto se renderiza como `<Component {...todoContext} {...props} />`. ¿Por qué importa el orden de los spreads?
+
+- A) No importa: React fusiona las props alfabéticamente
+- B) El primero siempre gana, por eso el contexto va primero
+- C) En JSX, ante props repetidas gana la última: poner {...props} después permite que las props del padre sobrescriban a las inyectadas por el HOC
+- D) Poner {...props} al final evita que el componente re-renderice
+
+### 15. ¿Por qué NUNCA debe aplicarse un HOC dentro del cuerpo de render de otro componente?
+
+- A) Porque los HOCs solo funcionan con componentes de clase
+- B) Porque React lanza un error de hooks condicionales
+- C) Porque se crearía un tipo de componente distinto en cada render, forzando a React a desmontar y remontar el subárbol completo (perdiendo estado y DOM)
+- D) Porque los HOCs no pueden acceder a props definidas en tiempo de render
+
 > Las preguntas de los siguientes módulos se agregan aquí a su cierre.
 
 <!--
@@ -154,6 +177,12 @@ Plantilla de pregunta:
 **11. Respuesta: B** — Es exactamente el cierre del Olor #6: la lista conoce sus situaciones (cargando, vacía, sin resultados...) y el padre declara la UI de cada una. TodoList no importa TodosError ni TodoItem: ejecuta funciones que le pasaron. A confunde con lazy evaluation (las funciones se ejecutan en el mismo render), C y D son falsos.
 
 **12. Respuesta: C** — Para compartir LÓGICA con estado (A) los hooks son el reemplazo moderno. Pero cuando lo que se delega es UI —"tú decides cuándo, yo decido qué se pinta"— los render props siguen vigentes y se usan en librerías actuales (TanStack Table, Downshift, Headless UI). D es demasiado absoluto, y B no tiene sentido: los render props no sustituyen efectos.
+
+**13. Respuesta: B** — Un HOC no es un componente ni una API de React: es una FUNCIÓN (patrón de higher-order functions) que envuelve componentes para agregarles props o comportamiento. A describe herencia (justo lo que React evita), C confunde con CSS, D mezcla conceptos: los hooks no envuelven componentes.
+
+**14. Respuesta: C** — En JSX las props repetidas se resuelven como en los objetos: la última gana. `{...todoContext} {...props}` es una decisión de diseño: si el padre pasa explícitamente una prop que el HOC también inyecta, manda el padre. Invertir el orden haría que el HOC pisara silenciosamente las props del padre — fuente clásica de bugs.
+
+**15. Respuesta: C** — `withX(Component)` devuelve una función nueva CADA vez que se llama. Si eso ocurre en un render, React ve un "tipo" diferente en cada pasada, descarta el subárbol anterior y lo monta de cero: se pierde estado local (lo escrito en inputs), foco y DOM. Por eso los HOCs se aplican una sola vez, a nivel de módulo. B menciona una regla real de hooks pero no es lo que pasa aquí; A y D son falsas.
 
 <!--
 Plantilla de respuesta:
