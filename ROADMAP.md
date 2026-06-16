@@ -121,7 +121,7 @@ Los hooks son la respuesta moderna de React al problema de compartir lógica con
 
 ---
 
-## Módulo 7 — Examen final ⬜
+## Módulo 7 — Examen final ✅
 
 **Rama:** `feature/07-examen-final`
 
